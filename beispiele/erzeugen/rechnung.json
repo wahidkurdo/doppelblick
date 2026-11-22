@@ -1,0 +1,85 @@
+{
+  "id": "RE-2026-001",
+  "typeCode": "380",
+  "issueDate": "2026-11-20",
+  "dueDate": "2026-12-04",
+  "currencyCode": "EUR",
+  "businessProcessType": "urn:fdc:peppol.eu:2017:poacc:billing:01:1.0",
+  "buyerReference": "Bestellung 4711",
+
+  "seller": {
+    "name": "Malerei Sonnenschein GmbH",
+    "vatId": "DE123456789",
+    "address": {
+      "line1": "Blumenweg 5",
+      "city": "Freiburg",
+      "postalCode": "79100",
+      "countryCode": "DE"
+    },
+    "electronicAddress": "rechnung@sonnenschein.example",
+    "electronicAddressSchemeId": "EM",
+    "contact": {
+      "name": "Buchhaltung",
+      "telephone": "+49 000 0000000",
+      "email": "buchhaltung@sonnenschein.example"
+    }
+  },
+
+  "buyer": {
+    "name": "Bäckerei Krümel GmbH",
+    "vatId": "DE987654321",
+    "address": {
+      "line1": "Hauptstraße 12",
+      "city": "Lahr",
+      "postalCode": "77933",
+      "countryCode": "DE"
+    },
+    "electronicAddress": "einkauf@kruemel.example",
+    "electronicAddressSchemeId": "EM"
+  },
+
+  "lines": [
+    {
+      "id": "1",
+      "name": "Wände streichen",
+      "quantity": 10,
+      "unitCode": "HUR",
+      "unitPrice": 45.0,
+      "lineAmount": 450.0,
+      "vatCategoryCode": "S",
+      "vatRate": 19
+    },
+    {
+      "id": "2",
+      "name": "Farbe (Eimer)",
+      "quantity": 4,
+      "unitCode": "C62",
+      "unitPrice": 30.0,
+      "lineAmount": 120.0,
+      "vatCategoryCode": "S",
+      "vatRate": 19
+    }
+  ],
+
+  "vatBreakdowns": [
+    {
+      "categoryCode": "S",
+      "rate": 19,
+      "taxableAmount": 570.0,
+      "taxAmount": 108.3
+    }
+  ],
+
+  "taxExclusiveAmount": 570.0,
+  "taxAmount": 108.3,
+  "taxInclusiveAmount": 678.3,
+  "duePayableAmount": 678.3,
+
+  "paymentMeans": {
+    "code": "58",
+    "iban": "",
+    "accountName": "Malerei Sonnenschein GmbH"
+  },
+
+  "note": "Zahlbar innerhalb von 14 Tagen nach Rechnungsdatum."
+}
