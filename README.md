@@ -27,7 +27,20 @@ Kommt bald.
 
 ## Beispielrechnungen
 
-Kommt bald. Die Beispielrechnungen haben erfundene Daten.
+Die Beispielrechnungen haben erfundene Daten. Die Bankleitzahlen 99900011 und 99900022 in den IBANs gibt es nicht.
+
+In `korrekt.pdf` stimmen die sichtbar abgedruckte IBAN auf dem PDF-Beleg und die im versteckten XML-Anhang hinterlegte IBAN exakt überein. In `iban-abweichend.pdf` wurde die IBAN im XML nachträglich ausgetauscht – das PDF sieht für Menschen noch genau gleich aus, aber eine automatische Rechnungssoftware würde an das falsche Konto überweisen.
+
+So sind die beiden Dateien entstanden (Rechnungsdaten in `beispiele/erzeugen/rechnung.json`, erzeugt mit [openinvoicexml](https://github.com/HongbaeKim/openinvoicexml)):
+
+```
+node beispiele/erzeugen/erzeuge.ts
+qpdf --show-attachment=factur-x.xml beispiele/korrekt.pdf > beispiele/erzeugen/factur-x-iban-b.xml
+sed -i 's/DE52999000111234567890/DE54999000229876543210/' beispiele/erzeugen/factur-x-iban-b.xml
+qpdf beispiele/korrekt.pdf --add-attachment beispiele/erzeugen/factur-x-iban-b.xml --key=factur-x.xml --mimetype=text/xml --replace -- beispiele/iban-abweichend.pdf
+```
+
+`iban-abweichend.pdf` ist danach kein sauberes PDF/A-3 mehr. Ein echter Angreifer manipuliert Rechnungen ebenfalls ohne Rücksicht auf die strenge PDF/A-3-Norm, weil viele Buchhaltungsprogramme beim Import den PDF/A-Standard gar nicht prüfen, sondern einfach blind das eingebettete XML auslesen. Gerade deshalb muss unser Prüfwerkzeug auch solche „unsauberen“ Dateien akzeptieren und den IBAN-Unterschied erkennen.
 
 ## Lizenz
 

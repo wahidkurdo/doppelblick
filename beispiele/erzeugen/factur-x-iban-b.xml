@@ -1,0 +1,153 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rsm:CrossIndustryInvoice
+  xmlns:rsm="urn:un:unece:uncefact:data:standard:CrossIndustryInvoice:100"
+  xmlns:ram="urn:un:unece:uncefact:data:standard:ReusableAggregateBusinessInformationEntity:100"
+  xmlns:qdt="urn:un:unece:uncefact:data:standard:QualifiedDataType:100"
+  xmlns:udt="urn:un:unece:uncefact:data:standard:UnqualifiedDataType:100">
+  <rsm:ExchangedDocumentContext>
+    <ram:BusinessProcessSpecifiedDocumentContextParameter>
+      <ram:ID>urn:fdc:peppol.eu:2017:poacc:billing:01:1.0</ram:ID>
+    </ram:BusinessProcessSpecifiedDocumentContextParameter>
+    <ram:GuidelineSpecifiedDocumentContextParameter>
+      <ram:ID>urn:cen.eu:en16931:2017</ram:ID>
+    </ram:GuidelineSpecifiedDocumentContextParameter>
+  </rsm:ExchangedDocumentContext>
+  <rsm:ExchangedDocument>
+    <ram:ID>RE-2026-001</ram:ID>
+    <ram:TypeCode>380</ram:TypeCode>
+    <ram:IssueDateTime>
+      <udt:DateTimeString format="102">20261120</udt:DateTimeString>
+    </ram:IssueDateTime>
+    <ram:IncludedNote>
+      <ram:Content>Zahlbar innerhalb von 14 Tagen nach Rechnungsdatum.</ram:Content>
+    </ram:IncludedNote>
+  </rsm:ExchangedDocument>
+  <rsm:SupplyChainTradeTransaction>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>1</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Wände streichen</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>45.00</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="HUR">10</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>450.00</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+  <ram:IncludedSupplyChainTradeLineItem>
+    <ram:AssociatedDocumentLineDocument>
+      <ram:LineID>2</ram:LineID>
+    </ram:AssociatedDocumentLineDocument>
+    <ram:SpecifiedTradeProduct>
+      <ram:Name>Farbe (Eimer)</ram:Name>
+    </ram:SpecifiedTradeProduct>
+    <ram:SpecifiedLineTradeAgreement>
+      <ram:NetPriceProductTradePrice>
+        <ram:ChargeAmount>30.00</ram:ChargeAmount>
+      </ram:NetPriceProductTradePrice>
+    </ram:SpecifiedLineTradeAgreement>
+    <ram:SpecifiedLineTradeDelivery>
+      <ram:BilledQuantity unitCode="C62">4</ram:BilledQuantity>
+    </ram:SpecifiedLineTradeDelivery>
+    <ram:SpecifiedLineTradeSettlement>
+      <ram:ApplicableTradeTax>
+        <ram:TypeCode>VAT</ram:TypeCode>
+        <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+      </ram:ApplicableTradeTax>
+      <ram:SpecifiedTradeSettlementLineMonetarySummation>
+        <ram:LineTotalAmount>120.00</ram:LineTotalAmount>
+      </ram:SpecifiedTradeSettlementLineMonetarySummation>
+    </ram:SpecifiedLineTradeSettlement>
+  </ram:IncludedSupplyChainTradeLineItem>
+    <ram:ApplicableHeaderTradeAgreement>
+    <ram:BuyerReference>Bestellung 4711</ram:BuyerReference>
+  <ram:SellerTradeParty>
+      <ram:Name>Malerei Sonnenschein GmbH</ram:Name>
+      <ram:DefinedTradeContact>
+        <ram:PersonName>Buchhaltung</ram:PersonName>
+        <ram:TelephoneUniversalCommunication>
+          <ram:CompleteNumber>+49 000 0000000</ram:CompleteNumber>
+        </ram:TelephoneUniversalCommunication>
+        <ram:EmailURIUniversalCommunication>
+          <ram:URIID>buchhaltung@sonnenschein.example</ram:URIID>
+        </ram:EmailURIUniversalCommunication>
+      </ram:DefinedTradeContact>
+      <ram:PostalTradeAddress>
+        <ram:PostcodeCode>79100</ram:PostcodeCode>
+        <ram:LineOne>Blumenweg 5</ram:LineOne>
+        <ram:CityName>Freiburg</ram:CityName>
+        <ram:CountryID>DE</ram:CountryID>
+      </ram:PostalTradeAddress>
+      <ram:URIUniversalCommunication>
+        <ram:URIID schemeID="EM">rechnung@sonnenschein.example</ram:URIID>
+      </ram:URIUniversalCommunication>
+      <ram:SpecifiedTaxRegistration>
+        <ram:ID schemeID="VA">DE123456789</ram:ID>
+      </ram:SpecifiedTaxRegistration>
+  </ram:SellerTradeParty>
+  <ram:BuyerTradeParty>
+      <ram:Name>Bäckerei Krümel GmbH</ram:Name>
+      <ram:PostalTradeAddress>
+        <ram:PostcodeCode>77933</ram:PostcodeCode>
+        <ram:LineOne>Hauptstraße 12</ram:LineOne>
+        <ram:CityName>Lahr</ram:CityName>
+        <ram:CountryID>DE</ram:CountryID>
+      </ram:PostalTradeAddress>
+      <ram:URIUniversalCommunication>
+        <ram:URIID schemeID="EM">einkauf@kruemel.example</ram:URIID>
+      </ram:URIUniversalCommunication>
+      <ram:SpecifiedTaxRegistration>
+        <ram:ID schemeID="VA">DE987654321</ram:ID>
+      </ram:SpecifiedTaxRegistration>
+  </ram:BuyerTradeParty>
+    </ram:ApplicableHeaderTradeAgreement>
+    <ram:ApplicableHeaderTradeDelivery/>
+    <ram:ApplicableHeaderTradeSettlement>
+      <ram:InvoiceCurrencyCode>EUR</ram:InvoiceCurrencyCode>
+    <ram:SpecifiedTradeSettlementPaymentMeans>
+      <ram:TypeCode>58</ram:TypeCode>
+      <ram:PayeePartyCreditorFinancialAccount>
+        <ram:IBANID>DE54999000229876543210</ram:IBANID>
+        <ram:AccountName>Malerei Sonnenschein GmbH</ram:AccountName>
+      </ram:PayeePartyCreditorFinancialAccount>
+    </ram:SpecifiedTradeSettlementPaymentMeans>
+    <ram:ApplicableTradeTax>
+      <ram:CalculatedAmount>108.30</ram:CalculatedAmount>
+      <ram:TypeCode>VAT</ram:TypeCode>
+      <ram:BasisAmount>570.00</ram:BasisAmount>
+      <ram:CategoryCode>S</ram:CategoryCode>
+        <ram:RateApplicablePercent>19</ram:RateApplicablePercent>
+    </ram:ApplicableTradeTax>
+    <ram:SpecifiedTradePaymentTerms>
+      <ram:DueDateDateTime>
+        <udt:DateTimeString format="102">20261204</udt:DateTimeString>
+      </ram:DueDateDateTime>
+    </ram:SpecifiedTradePaymentTerms>
+      <ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+        <ram:LineTotalAmount>570.00</ram:LineTotalAmount>
+        <ram:ChargeTotalAmount>0.00</ram:ChargeTotalAmount>
+        <ram:AllowanceTotalAmount>0.00</ram:AllowanceTotalAmount>
+        <ram:TaxBasisTotalAmount>570.00</ram:TaxBasisTotalAmount>
+        <ram:TaxTotalAmount currencyID="EUR">108.30</ram:TaxTotalAmount>
+        <ram:GrandTotalAmount>678.30</ram:GrandTotalAmount>
+        <ram:DuePayableAmount>678.30</ram:DuePayableAmount>
+      </ram:SpecifiedTradeSettlementHeaderMonetarySummation>
+    </ram:ApplicableHeaderTradeSettlement>
+  </rsm:SupplyChainTradeTransaction>
+</rsm:CrossIndustryInvoice>
