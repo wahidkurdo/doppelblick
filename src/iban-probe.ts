@@ -1,4 +1,7 @@
-import { istGueltig } from "./iban.ts";
+import { istGueltig, baueIban } from "./iban.ts";
 
-console.log(istGueltig("DE89370400440532013000"));
-console.log(istGueltig("DE89370400440532013001"));
+const ibanA = baueIban("99900011", "1234567890");
+const ibanB = baueIban("99900022", "9876543210");
+
+console.log("IBAN A:", ibanA, "-> Gültig:", istGueltig(ibanA));
+console.log("IBAN B:", ibanB, "-> Gültig:", istGueltig(ibanB));

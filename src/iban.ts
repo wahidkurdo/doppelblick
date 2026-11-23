@@ -1,7 +1,5 @@
-export function istGueltig(iban: string): boolean {
+function berechneRest(iban: string): bigint {
   const clean = iban.replaceAll(" ", "").toUpperCase();
-  if (clean.length < 15) return false;
-
   const rotated = clean.slice(4) + clean.slice(0, 4);
   let digits = "";
 
@@ -10,5 +8,20 @@ export function istGueltig(iban: string): boolean {
     digits += code >= 65 && code <= 90 ? (code - 55).toString() : char;
   }
 
-  return BigInt(digits) % 97n === 1n;
+  return BigInt(digits) % 97n;
+}
+
+export function istGueltig(iban: string): boolean {
+  const clean = iban.replaceAll(" ", "").toUpperCase();
+  if (clean.length < 15) return false;
+
+  return berechneRest(clean) === 1n;
+}
+
+export function baueIban(blz: string, konto: string): string {
+  const dummy = "DE00" + blz + konto;
+  const rest = berechneRest(dummy);
+  const pruefziffer = (98n - rest).toString().padStart(2, "0");
+
+  return "DE" + pruefziffer + blz + konto;
 }
