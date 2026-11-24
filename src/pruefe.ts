@@ -2,7 +2,7 @@ import { holeXml } from "./xml-holen.ts";
 import { leseRechnungsdaten } from "./xml-lesen.ts";
 import { holeText } from "./text-holen.ts";
 import { istGueltig } from "./iban.ts";
-import { baueBetragVarianten } from "./betrag.ts";
+import { baueBetragVarianten, enthaeltBetrag } from "./betrag.ts";
 
 const pdfPfad = process.argv[2];
 
@@ -20,7 +20,7 @@ if (!pdfPfad) {
 
     const betragVarianten = baueBetragVarianten(betrag);
     const gefundenerBetrag = betragVarianten.find((variante) =>
-      text.includes(variante)
+      enthaeltBetrag(text, variante)
     );
 
     if (gefundenerBetrag) {
