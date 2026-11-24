@@ -1,4 +1,4 @@
-import { holeText } from "./text-holen.ts";
+import { holeText } from "../src/text-holen.ts";
 
 const { text, ohneLeerraum } = await holeText("beispiele/iban-abweichend.pdf");
 

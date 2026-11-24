@@ -1,4 +1,4 @@
-import { istGueltig, baueIban } from "./iban.ts";
+import { istGueltig, baueIban } from "../src/iban.ts";
 
 const ibanA = baueIban("99900011", "1234567890");
 const ibanB = baueIban("99900022", "9876543210");

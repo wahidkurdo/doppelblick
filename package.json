@@ -1,8 +1,7 @@
 {
   "name": "doppelblick",
-  "version": "1.0.0",
+  "version": "0.1.0",
   "description": "Eine E-Rechnung hat zwei Teile: ein PDF und ein verstecktes XML. Doppelblick prüft, ob die Werte im XML die gleichen sind, die auch im PDF angezeigt werden.",
-  "main": "index.js",
   "scripts": {
     "test": "node --test \"test/*.test.ts\""
   },

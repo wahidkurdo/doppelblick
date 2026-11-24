@@ -1,5 +1,5 @@
-import { holeXml } from "./xml-holen.ts";
-import { leseRechnungsdaten } from "./xml-lesen.ts";
+import { holeXml } from "../src/xml-holen.ts";
+import { leseRechnungsdaten } from "../src/xml-lesen.ts";
 
 const xmlKorrekt = await holeXml("beispiele/korrekt.pdf");
 console.log("korrekt.pdf:", leseRechnungsdaten(xmlKorrekt));

@@ -1,4 +1,4 @@
-import { holeXml } from "./xml-holen.ts";
+import { holeXml } from "../src/xml-holen.ts";
 
 const xml = await holeXml("beispiele/iban-abweichend.pdf");
 
