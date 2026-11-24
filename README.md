@@ -8,6 +8,8 @@ Das hier ist erst eine Skizze, kein fertiges Werkzeug.
 
 Das kann ausgenutzt werden: Im PDF wird ein anderer Wert angezeigt, als im XML steht. Das PDF liest der Mensch selbst, das XML wird von den Programmen gelesen.
 
+Bei E-Rechnungen im hybriden Format (wie ZUGFeRD oder Factur-X) gilt im Zweifel der strukturierte XML-Datensatz als das maßgebliche Original – nicht die visuelle PDF-Ansicht (vgl. die BMF-Schreiben vom 15.10.2024 und 15.10.2025 zur Einführung der obligatorischen E-Rechnung sowie die [FAQ des Bundesfinanzministeriums](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html); Zusammenfassung des Schreibens von 2025 bei der [IHK Köln](https://www.ihk.de/koeln/hauptnavigation/recht-steuern/steuern/bmf-schreiben-zur-e-rechnung-vom-15-10-2025-6774012)). Weicht die IBAN im unsichtbaren XML-Anhang vom sichtbaren PDF-Beleg ab, überweist eine automatisierte Buchhaltung an das manipulierte Konto, ohne dass es bei einer reinen Sichtprüfung auffällt.
+
 ## Was die Skizze kann
 
 Die Skizze prüft zwei Werte: den Betrag, also um wie viel Geld es geht, und die IBAN, also wohin das Geld überwiesen wird.
@@ -20,10 +22,52 @@ Das Programm zeigt dem Nutzer, ob die beiden Werte zusammenstimmen oder ob die D
 - Kein QR-Code zum Bezahlen (GiroCode).
 - Nur E-Rechnungen im Format ZUGFeRD/Factur-X.
 - Nur Betrag und IBAN, keine anderen Werte.
+- Kein Kontext beim Betrag: Der Rechnungsbetrag gilt bereits als gefunden, sobald die passende Zahlenfolge irgendwo im sichtbaren PDF-Text auftaucht – es wird noch nicht geprüft, ob sie wirklich beim Gesamtbetrag steht und nicht zufällig bei einer Einzelposition.
+- Nur deutsche IBANs bei der Gegenprüfung: Die Rückwärtssuche im sichtbaren PDF sucht gezielt nach dem Muster DE plus 20 Ziffern. Ausländische IBANs werden dabei noch nicht erkannt.
 
 ## Ausprobieren
 
-Kommt bald.
+Voraussetzung: Node.js ab Version 22.18 (führt TypeScript-Dateien direkt ohne Build-Schritt aus).
+
+```bash
+git clone https://github.com/wahidkurdo/doppelblick.git
+cd doppelblick
+npm ci
+```
+
+Unveränderte Rechnung prüfen (Exit-Code 0):
+
+```bash
+node src/pruefe.ts beispiele/korrekt.pdf
+```
+
+Ausgabe:
+
+```text
+Betrag: ok (678,30)
+IBAN: ok (DE52999000111234567890)
+keine Abweichung
+```
+
+Manipulierte Rechnung mit abweichender XML-IBAN prüfen (Exit-Code 1):
+
+```bash
+node src/pruefe.ts beispiele/iban-abweichend.pdf
+```
+
+Ausgabe:
+
+```text
+Betrag: ok (678,30)
+IBAN: ABWEICHUNG – PDF zeigt DE52999000111234567890, XML nennt DE54999000229876543210
+ABWEICHUNG
+```
+
+Automatisierte Tests ausführen:
+
+```bash
+npm test
+```
 
 ## Beispielrechnungen
 
