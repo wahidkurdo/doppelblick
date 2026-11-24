@@ -8,13 +8,13 @@ Das hier ist erst eine Skizze, kein fertiges Werkzeug.
 
 Das kann ausgenutzt werden: Im PDF wird ein anderer Wert angezeigt, als im XML steht. Das PDF liest der Mensch selbst, das XML wird von den Programmen gelesen.
 
-Bei E-Rechnungen im hybriden Format (wie ZUGFeRD oder Factur-X) gilt im Zweifel der strukturierte XML-Datensatz als das maßgebliche Original – nicht die visuelle PDF-Ansicht (vgl. die BMF-Schreiben vom 15.10.2024 und 15.10.2025 zur Einführung der obligatorischen E-Rechnung sowie die [FAQ des Bundesfinanzministeriums](https://www.bundesfinanzministerium.de/Content/DE/FAQ/e-rechnung.html); Zusammenfassung des Schreibens von 2025 bei der [IHK Köln](https://www.ihk.de/koeln/hauptnavigation/recht-steuern/steuern/bmf-schreiben-zur-e-rechnung-vom-15-10-2025-6774012)). Weicht die IBAN im unsichtbaren XML-Anhang vom sichtbaren PDF-Beleg ab, überweist eine automatisierte Buchhaltung an das manipulierte Konto, ohne dass es bei einer reinen Sichtprüfung auffällt.
+Bei E-Rechnungen im hybriden Format (wie ZUGFeRD oder Factur-X) gilt im Zweifel der strukturierte XML-Datensatz als das maßgebliche Original – nicht die visuelle PDF-Ansicht (vgl. [BMF-Schreiben vom 15.10.2025](https://www.bundesfinanzministerium.de/Content/DE/Downloads/BMF_Schreiben/Steuerarten/Umsatzsteuer/Umsatzsteuer-Anwendungserlass/2025-10-15-einfuehrung-obligatorische-e-rechnung.html) zur Einführung der obligatorischen E-Rechnung). Weicht die IBAN im unsichtbaren XML-Anhang vom sichtbaren PDF-Beleg ab, überweist eine automatisierte Buchhaltung an das falsche Konto, ohne dass es bei einer reinen Sichtprüfung auffällt.
 
 ## Was die Skizze kann
 
 Die Skizze prüft zwei Werte: den Betrag, also um wie viel Geld es geht, und die IBAN, also wohin das Geld überwiesen wird.
 
-Das Programm zeigt dem Nutzer, ob die beiden Werte zusammenstimmen oder ob die Datei manipuliert ist. Also ob die IBAN und der Betrag, die im PDF angezeigt werden, auch die gleichen sind, die im XML stehen.
+Das Programm zeigt dem Nutzer, ob die beiden Werte zusammenstimmen oder ob sie voneinander abweichen. Eine Abweichung kann Betrug sein, aber auch ein Programmfehler. Also ob die IBAN und der Betrag, die im PDF angezeigt werden, auch die gleichen sind, die im XML stehen.
 
 ## Was die Skizze noch nicht kann
 
@@ -24,6 +24,7 @@ Das Programm zeigt dem Nutzer, ob die beiden Werte zusammenstimmen oder ob die D
 - Nur Betrag und IBAN, keine anderen Werte.
 - Kein Kontext beim Betrag: Der Rechnungsbetrag gilt bereits als gefunden, sobald die passende Zahlenfolge irgendwo im sichtbaren PDF-Text auftaucht – es wird noch nicht geprüft, ob sie wirklich beim Gesamtbetrag steht und nicht zufällig bei einer Einzelposition.
 - Nur deutsche IBANs bei der Gegenprüfung: Die Rückwärtssuche im sichtbaren PDF sucht gezielt nach dem Muster DE plus 20 Ziffern. Ausländische IBANs werden dabei noch nicht erkannt.
+- Nur ein XML-Anhang: Die Skizze liest nur den ersten gefundenen bekannten Anhang (hier factur-x.xml). In iban-abweichend.pdf hängt über /AF noch das ursprüngliche XML; mehrere XML-Dateien in der normalen Anhangliste meldet sie mit einer Warnung, ein zusätzliches XML, das nur über /AF eingebunden ist, aber noch nicht.
 
 ## Ausprobieren
 
@@ -84,7 +85,7 @@ sed -i 's/DE52999000111234567890/DE54999000229876543210/' beispiele/erzeugen/fac
 qpdf beispiele/korrekt.pdf --add-attachment beispiele/erzeugen/factur-x-iban-b.xml --key=factur-x.xml --mimetype=text/xml --replace -- beispiele/iban-abweichend.pdf
 ```
 
-`iban-abweichend.pdf` ist danach kein sauberes PDF/A-3 mehr. Ein echter Angreifer manipuliert Rechnungen ebenfalls ohne Rücksicht auf die strenge PDF/A-3-Norm, weil viele Buchhaltungsprogramme beim Import den PDF/A-Standard gar nicht prüfen, sondern einfach blind das eingebettete XML auslesen. Gerade deshalb muss unser Prüfwerkzeug auch solche „unsauberen“ Dateien akzeptieren und den IBAN-Unterschied erkennen.
+`iban-abweichend.pdf` ist danach kein sauberes PDF/A-3 mehr. Ein echter Angreifer verändert Rechnungen ebenfalls ohne Rücksicht auf die strenge PDF/A-3-Norm, weil manche Buchhaltungsprogramme beim Import den PDF/A-Standard gar nicht prüfen, sondern einfach blind das eingebettete XML auslesen. Gerade deshalb muss das Prüfwerkzeug auch solche „unsauberen“ Dateien akzeptieren und den IBAN-Unterschied trotzdem zuverlässig erkennen.
 
 ## Lizenz
 
