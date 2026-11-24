@@ -14,6 +14,7 @@ function berechneRest(iban: string): bigint {
 export function istGueltig(iban: string): boolean {
   const clean = iban.replaceAll(" ", "").toUpperCase();
   if (clean.length < 15) return false;
+  if (!/^[A-Z0-9]+$/.test(clean)) return false;
 
   return berechneRest(clean) === 1n;
 }

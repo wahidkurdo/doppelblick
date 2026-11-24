@@ -5,8 +5,6 @@ export interface Rechnungsdaten {
   ibans: string[];
 }
 
-// Hilfsfunktion für Stolperfalle 2: Falls ein Tag Attribute hat (z. B. currencyID="EUR"),
-// liegt der eigentliche Wert unter "#text", sonst direkt als Text vor.
 function holeTextWert(knoten: unknown): string | undefined {
   if (typeof knoten === "string") {
     return knoten.trim();
@@ -18,12 +16,10 @@ function holeTextWert(knoten: unknown): string | undefined {
 }
 
 export function leseRechnungsdaten(xml: string): Rechnungsdaten {
-  // 1. Sicherheit zuerst: XXE-Schutz
-  if (xml.includes("<!DOCTYPE")) {
+  if (/<!doctype/i.test(xml)) {
     throw new Error("Sicherheitsabbruch: XML enthält eine unzulässige <!DOCTYPE>-Deklaration.");
   }
 
-  // 2. Parser einstellen und ausführen
   const parser = new XMLParser({
     processEntities: false,
     removeNSPrefix: true,
@@ -33,12 +29,10 @@ export function leseRechnungsdaten(xml: string): Rechnungsdaten {
 
   const daten = parser.parse(xml);
 
-  // 3. Nur CII unterstützen
   if (!daten?.CrossIndustryInvoice) {
     throw new Error("Nicht unterstütztes Format: Nur CII (CrossIndustryInvoice) wird unterstützt.");
   }
 
-  // 4. Den Weg entlanggehen (gemeinsamer Start)
   const settlement =
     daten.CrossIndustryInvoice?.SupplyChainTradeTransaction?.ApplicableHeaderTradeSettlement;
 
@@ -46,7 +40,6 @@ export function leseRechnungsdaten(xml: string): Rechnungsdaten {
     throw new Error("Strukturfehler: ApplicableHeaderTradeSettlement fehlt im XML.");
   }
 
-  // Betrag auslesen
   const rawBetrag =
     settlement.SpecifiedTradeSettlementHeaderMonetarySummation?.DuePayableAmount;
   const betrag = holeTextWert(rawBetrag);
@@ -55,7 +48,6 @@ export function leseRechnungsdaten(xml: string): Rechnungsdaten {
     throw new Error("Strukturfehler: DuePayableAmount (Zahlbetrag) konnte nicht gelesen werden.");
   }
 
-  // 5. Stolperfalle 1: Zahlungswege können ein einzelnes Objekt oder eine Liste sein
   const rawPaymentMeans = settlement.SpecifiedTradeSettlementPaymentMeans;
   const zahlungswege = Array.isArray(rawPaymentMeans)
     ? rawPaymentMeans
